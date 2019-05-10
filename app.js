@@ -3,10 +3,11 @@
 require('dotenv').config();
 const request = require('request-promise');
 const git = require('nodegit');
+const fs = require('fs-extra');
 const server = process.env.SERVER;
 const serverProtocol = `${server.split('/')[0]}//`;
 const token = process.env.TOKEN;
-const backupFolder = process.env.BACKUP_FOLDER;
+const repositoryBackupFolder = `${process.env.BACKUP_FOLDER}/repositories/`;
 
 const authorizedGetRequest = async (url) => {
     return await request.get(url, {
@@ -25,6 +26,8 @@ const generateAuthorizedRepoUrl = (url) => {
 };
 
 (async () => {
+    fs.removeSync(repositoryBackupFolder);
+
     const repositories = [];
     const groups = await authorizedGetRequest(`${server}/api/v4/groups`);
     for(const group of groups){
@@ -41,7 +44,7 @@ const generateAuthorizedRepoUrl = (url) => {
     }
 
     for(const repository of repositories){
-        await git.Clone(generateAuthorizedRepoUrl(repository.url), `${backupFolder}/${repository.path}`);
+        await git.Clone(generateAuthorizedRepoUrl(repository.url), `${repositoryBackupFolder}${repository.path}`);
         console.info(`"${repository.name}" repository cloned.`);
     }
 })();

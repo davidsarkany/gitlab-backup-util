@@ -1,6 +1,6 @@
 {
   "name": "gitlab-backup-util",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "A small utility to backup or clone all projects you have on gitlab.",
   "author": "David Sarkany (https://sarkanydavid.com)",
   "main": "index.js",
@@ -18,6 +18,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "dotenv": "^8.0.0",
+    "fs-extra": "^7.0.1",
     "nodegit": "^0.25.0-alpha.10",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
