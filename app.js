@@ -8,6 +8,7 @@ const server = process.env.SERVER;
 const serverProtocol = `${server.split('/')[0]}//`;
 const token = process.env.TOKEN;
 const repositoryBackupFolder = `${process.env.BACKUP_FOLDER}/repositories/`;
+const snippetBackupFolder = `${process.env.BACKUP_FOLDER}/snippets/`;
 
 const authorizedGetRequest = async (url) => {
     return await request.get(url, {
@@ -27,6 +28,7 @@ const generateAuthorizedRepoUrl = (url) => {
 
 (async () => {
     fs.removeSync(repositoryBackupFolder);
+    fs.removeSync(snippetBackupFolder);
 
     const repositories = [];
     const groups = await authorizedGetRequest(`${server}/api/v4/groups`);
@@ -46,5 +48,16 @@ const generateAuthorizedRepoUrl = (url) => {
     for(const repository of repositories){
         await git.Clone(generateAuthorizedRepoUrl(repository.url), `${repositoryBackupFolder}${repository.path}`);
         console.info(`"${repository.name}" repository cloned.`);
+    }
+
+    const snippets = await authorizedGetRequest(`${server}/api/v4/snippets`);
+    for(const snippet of snippets){
+        const snippetRawContent = await authorizedGetRequest(`${server}/api/v4/snippets/${snippet.id}/raw`);
+
+        await fs.outputFile(`${snippetBackupFolder}${snippet.id}-meta.json`, JSON.stringify(snippet));
+        console.info(`${snippet.title} snippet meta saved.`);
+
+        await fs.outputFile(`${snippetBackupFolder}${snippet.id}`, snippetRawContent);
+        console.info(`${snippet.title} snippet content saved.`);
     }
 })();
