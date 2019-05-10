@@ -42,6 +42,6 @@ const generateAuthorizedRepoUrl = (url) => {
 
     for(const repository of repositories){
         await git.Clone(generateAuthorizedRepoUrl(repository.url), `${backupFolder}/${repository.path}`);
-        console.info(repository.name);
+        console.info(`"${repository.name}" repository cloned.`);
     }
 })();
