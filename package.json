@@ -19,7 +19,7 @@
   "dependencies": {
     "dotenv": "^8.0.0",
     "fs-extra": "^7.0.1",
-    "nodegit": "^0.25.0-alpha.10",
+    "nodegit": "^0.24.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
   }
