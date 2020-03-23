@@ -17,10 +17,10 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "dotenv": "^8.0.0",
-    "fs-extra": "^7.0.1",
-    "nodegit": "^0.24.3",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "dotenv": "^8.2.0",
+    "fs-extra": "^9.0.0",
+    "nodegit": "^0.26.5",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
   }
 }
