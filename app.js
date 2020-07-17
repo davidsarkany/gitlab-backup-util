@@ -35,19 +35,19 @@ const generateAuthorizedRepoUrl = (url) => {
     for(const group of groups){
         let groupProjects = await authorizedGetRequest(`${server}/api/v4/groups/${group.id}/projects`);
         for(const groupProject of groupProjects){
-            repositories.push({name:groupProject.name, path: groupProject.path, url: groupProject.http_url_to_repo});
+            repositories.push({name:groupProject.name, path: groupProject.path_with_namespace, url: groupProject.http_url_to_repo});
         }
     }
 
     const user = await authorizedGetRequest(`${server}/api/v4/user`);
     const userProjects = await authorizedGetRequest(`${server}/api/v4/users/${user.id}/projects`);
     for(const userProject of userProjects){
-        repositories.push({name:userProject.name, path: userProject.path, url: userProject.http_url_to_repo});
+        repositories.push({name:userProject.name, path: userProject.path_with_namespace, url: userProject.http_url_to_repo});
     }
 
     for(const repository of repositories){
         await git.Clone(generateAuthorizedRepoUrl(repository.url), `${repositoryBackupFolder}${repository.path}`);
-        console.info(`"${repository.name}" repository cloned.`);
+        console.info(`"${repository.path}" repository cloned.`);
     }
 
     const snippets = await authorizedGetRequest(`${server}/api/v4/snippets`);
