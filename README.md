@@ -1,6 +1,6 @@
 # Gitlab Backup Script
 
-[![build](https://badgen.net/github/status/davidsarkany/gitlab-backup-util)](https://hub.docker.com/r/davidsarkany/gitlab-backup-util/builds)
+![E2E](https://github.com/davidsarkany/gitlab-backup-util/workflows/E2E/badge.svg)
 [![commits](https://badgen.net/github/commits/davidsarkany/gitlab-backup-util)](https://github.com/davidsarkany/gitlab-backup-util/commits/master)
 [![last_commit](https://badgen.net/github/last-commit/davidsarkany/gitlab-backup-util)](https://github.com/davidsarkany/gitlab-backup-util/commits/master)
 [![docker pulls](https://badgen.net/docker/pulls/davidsarkany/gitlab-backup-util)](https://hub.docker.com/r/davidsarkany/gitlab-backup-util)
