@@ -1,0 +1,40 @@
+name: E2E
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron:  '0 4 * * *'
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        node-version: [10.x, 12.x, 14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm test
+        env:
+          BACKUP_FOLDER: ${{ secrets.BACKUP_FOLDER }}
+          SERVER: ${{ secrets.SERVER }}
+          TOKEN: ${{ secrets.TOKEN }}
+  test-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run:  |
+          rm .dockerignore
+          docker build . --file Dockerfile --tag test
+          docker run -e "SERVER=${{ secrets.SERVER }}" -e "BACKUP_FOLDER=${{ secrets.BACKUP_FOLDER }}" -e "TOKEN=${{ secrets.TOKEN }}" --entrypoint sh test -c "npm ci && npm test"

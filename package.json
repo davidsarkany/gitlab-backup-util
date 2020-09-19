@@ -5,7 +5,8 @@
   "author": "David Sarkany (https://davidsarkany.com)",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "node tests/e2e.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,9 @@
     "nodegit": "^0.27.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6"
+  },
+  "devDependencies": {
+    "child_process": "^1.0.2",
+    "dir-compare": "^2.3.0"
   }
 }
