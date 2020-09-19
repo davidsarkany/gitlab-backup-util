@@ -38,3 +38,18 @@ jobs:
           rm .dockerignore
           docker build . --file Dockerfile --tag test
           docker run -e "SERVER=${{ secrets.SERVER }}" -e "BACKUP_FOLDER=${{ secrets.BACKUP_FOLDER }}" -e "TOKEN=${{ secrets.TOKEN }}" --entrypoint sh test -c "npm ci && npm test"
+
+  publish-docker:
+    needs: [test-docker,test]
+    env:
+      IMAGE_NAME: davidsarkany/gitlab-backup-util:latest
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+      - name: Log into Docker Hub Container Registry
+        run: echo "${{ secrets.DOCKER_HUB_PASS }}" | docker login -u ${{ secrets.DOCKER_HUB_USER }} --password-stdin
+      - name: Push image to Docker Hub Container Registry
+        run: docker push $IMAGE_NAME
