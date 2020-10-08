@@ -1,9 +1,17 @@
 'use strict';
-
 require('dotenv').config();
 const request = require('request-promise');
 const git = require('nodegit');
 const fs = require('fs-extra');
+
+if(process.env.SERVER === undefined || process.env.TOKEN === undefined || process.env.BACKUP_FOLDER === undefined){
+    console.error(
+        "Configuration is invalid. Please check the documentation.\n" +
+        "https://github.com/davidsarkany/gitlab-backup-util"
+    );
+    process.exit(1);
+}
+
 const server = process.env.SERVER;
 const serverProtocol = `${server.split('/')[0]}//`;
 const token = process.env.TOKEN;
@@ -27,6 +35,7 @@ const generateAuthorizedRepoUrl = (url) => {
 };
 
 (async () => {
+
     fs.removeSync(repositoryBackupFolder);
     fs.removeSync(snippetBackupFolder);
 
