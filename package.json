@@ -1,7 +1,7 @@
 {
   "name": "gitlab-backup-util",
   "version": "3.0.2",
-  "description": "A small utility to backup or clone all projects you have on gitlab.",
+  "description": "It's a simple utility, that helps to back up your Gitlab repositories and snippets.",
   "author": "David Sarkany (https://davidsarkany.com)",
   "main": "index.js",
   "scripts": {
