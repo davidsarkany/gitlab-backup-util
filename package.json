@@ -1,6 +1,6 @@
 {
   "name": "gitlab-backup-util",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "It's a simple utility, that helps to back up your Gitlab repositories and snippets.b",
   "author": "David Sarkany (https://davidsarkany.com)",
   "main": "index.js",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "child_process": "^1.0.2",
-    "dir-compare": "^2.4.0"
+    "dir-compare": "^2.4.0",
+    "typescript": "^4.1.3"
   }
 }
