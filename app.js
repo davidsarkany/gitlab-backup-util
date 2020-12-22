@@ -1,8 +1,8 @@
 'use strict';
 require('dotenv').config();
-const request = require('request-promise');
 const git = require('nodegit');
 const fs = require('fs-extra');
+const axios = require('axios');
 
 if(process.env.SERVER === undefined || process.env.TOKEN === undefined || process.env.BACKUP_FOLDER === undefined){
     console.error(
@@ -19,15 +19,13 @@ const repositoryBackupFolder = `${process.env.BACKUP_FOLDER}/repositories/`;
 const snippetBackupFolder = `${process.env.BACKUP_FOLDER}/snippets/`;
 
 const authorizedGetRequest = async (url) => {
-    return await request.get(url, {
-        json: true,
-        qs: {
-            simple: true
-        },
+    const axiosResponse = await axios.get(url, {
+        responseType: 'json',
         headers: {
             'PRIVATE-TOKEN': token
         }
-    })
+    });
+    return axiosResponse.data;
 };
 
 const generateAuthorizedRepoUrl = (url) => {
