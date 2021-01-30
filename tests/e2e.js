@@ -1,7 +1,9 @@
 const exec = require('child_process').exec;
 const dirCompare = require('dir-compare');
 const dirCompareOptions = { compareSize: true, compareContent: true, excludeFilter: '/**/.git' };
+const fs = require('fs-extra');
 
+fs.emptyDirSync('backup');
 const child = exec('node app.js',(error, stdout, stderr) =>
 {
     if (error !== null)
