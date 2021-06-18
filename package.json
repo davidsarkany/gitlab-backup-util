@@ -19,12 +19,12 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "axios": "^0.21.1",
-    "dotenv": "^9.0.2",
+    "dotenv": "^10.0.0",
     "fs-extra": "^10.0.0",
     "nodegit": "^0.27.0"
   },
   "devDependencies": {
     "child_process": "^1.0.2",
-    "dir-compare": "^3.0.0"
+    "dir-compare": "^3.3.0"
   }
 }
